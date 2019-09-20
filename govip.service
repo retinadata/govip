@@ -1,0 +1,21 @@
+[Unit]
+Description=govip virtual-ip service
+After=etcd.service
+Requires=etcd.service
+
+[Service]
+User=root
+ExecStart=/usr/local/bin/govip \
+        -etcd https://10.200.3.1:2379,https://10.200.1.1:2379,https://10.200.2.1:2379 \
+        -cacert /etc/ssl/etcd/ssl/ca.pem \
+        -cert /etc/ssl/etcd/ssl/node-node1.pem \
+        -key /etc/ssl/etcd/ssl/node-node1-key.pem \
+        -member node1 \
+        -vif cnio0 \
+        -vip 10.200.0.11/32
+Restart=always
+RestartSec=10s
+
+[Install]
+WantedBy=multi-user.target
+
