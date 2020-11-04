@@ -1,7 +1,7 @@
 [Unit]
 Description=govip virtual-ip service
-After=etcd.service
-Requires=etcd.service
+After=haproxy.service
+Requires=haproxy.service
 
 [Service]
 User=root
@@ -17,5 +17,5 @@ Restart=always
 RestartSec=10s
 
 [Install]
-WantedBy=multi-user.target
+WantedBy=haproxy.service
 
