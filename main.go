@@ -173,14 +173,14 @@ func main() {
 		}
 	}()
 
-	signal_chan := make(chan os.Signal, 1)
-	signal.Notify(signal_chan,
+	signalChan := make(chan os.Signal, 1)
+	signal.Notify(signalChan,
 		syscall.SIGINT,
 		syscall.SIGTERM)
 
 	go func() {
 		for {
-			s := <-signal_chan
+			s := <-signalChan
 			log.Infof("Received %v", s)
 			cancel()
 			close(quit)
